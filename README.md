@@ -18,6 +18,9 @@ pip install -r requirements.txt
 uvicorn main:app --port 8000
 ```
 
+# API docs
+
+http://127.0.0.1:8000/docs
 
 # Run tests
 
