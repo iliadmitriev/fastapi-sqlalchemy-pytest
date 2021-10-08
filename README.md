@@ -1,6 +1,6 @@
 # FastAsync
 
-This project is a minimal viable set used as a proof of concet.
+This project is a minimal viable set used as a proof of concept.
 The goal of this project is to try to meet FastAPI, SQLAlchemy, pytest and coverage and make them  work together.
 
 
