@@ -1,0 +1,14 @@
+[run]
+source = .
+branch = True
+parallel = True
+concurrency = greenlet
+
+omit =
+    venv/*
+	test_*
+
+
+[report]
+fail_under = 100
+show_missing = True
