@@ -14,8 +14,10 @@ on:
         # Default value if no value is explicitly provided
         default: 'World'
         # Input has to be provided for the workflow to run
-        required: true
-
+        required: false
+  pull_request_review_comment:
+    types: [created]
+    
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
@@ -28,3 +30,22 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
+    - name: Prepare tags
+      id: prepare
+      run: |
+        TAGS=${{ github.repository }}:sha-${GITHUB_SHA:0:7}
+        if [[ $GITHUB_REF == refs/pull/* ]]; then
+          VERSION=pr-${{ github.event.pull_request.number }}-merge
+          TAGS="${{ github.repository }}:${VERSION}"
+        fi
+        if [[ $GITHUB_REF == ref/tags/* ]]; then
+          VERSION=${GITHUB_REF#refs/tags/}
+          TAGS="${{ github.repository }}:${VERSION}"
+        fi
+        if [[ $GITHUB_REF == refs/heads/master ]]; then
+          VERSION=latest
+          TAGS="${{ github.repository }}:${VERSION}"
+        fi
+        echo "$GITHUB_REF"
+        echo "${TAGS}"
+        echo ::set-output name=tags::${TAGS}
