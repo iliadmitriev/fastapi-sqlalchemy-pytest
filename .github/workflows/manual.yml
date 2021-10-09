@@ -18,6 +18,8 @@ on:
       git-ref:
         description: Git Ref (Optional)    
         required: false
+  issue_comment:
+    types: [created]
   pull_request:
     branches: [ master ]
     
