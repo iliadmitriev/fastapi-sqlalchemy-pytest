@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+import uvicorn
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from starlette.requests import Request
@@ -26,3 +27,7 @@ async def get_home(request: Request):
     row = res.first()
     assert str(row[0]) == '1'
     return {"message": "OK"}
+
+
+if __name__ == '__main__':  # pragma: no cover
+    uvicorn.run(app=app, host="0.0.0.0", port=8000)  # type: ignore
